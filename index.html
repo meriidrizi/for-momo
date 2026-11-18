@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>for you, momo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Special+Elite&family=Gaegu:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#f3ebdd; --paper:#efe6d6; --red:#b3242b; --deep:#7a1c20;
+    --navy:#2f3a68; --gold:#d9a93a; --ink:#3a2a22; --pink:#e9a0a6;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:#faf7f1;color:var(--ink);font-family:'Gaegu',cursive;overflow-x:hidden}
+  body{
+    background-color:#fbf8f2;
+    background-image:radial-gradient(rgba(120,90,60,.06) 1px,transparent 1px);
+    background-size:6px 6px;
+  }
+  .wrap{max-width:460px;margin:0 auto;padding:28px 18px 80px;position:relative}
+
+  /* ---------- paper textures ---------- */
+  .lined{
+    background-color:var(--paper);
+    background-image:
+      linear-gradient(90deg,transparent 34px,rgba(200,80,90,.45) 34px,rgba(200,80,90,.45) 36px,transparent 36px),
+      repeating-linear-gradient(transparent 0 27px,rgba(90,110,160,.35) 27px 28px);
+  }
+  .gingham{
+    background-color:#fff6f2;
+    background-image:
+      linear-gradient(90deg,rgba(179,36,43,.55) 50%,transparent 50%),
+      linear-gradient(rgba(179,36,43,.55) 50%,transparent 50%);
+    background-size:16px 16px;
+  }
+  .navycheck{
+    background-color:#e9e2cf;
+    background-image:
+      linear-gradient(90deg,rgba(47,58,104,.75) 50%,transparent 50%),
+      linear-gradient(rgba(47,58,104,.75) 50%,transparent 50%);
+    background-size:44px 44px;
+  }
+  .stripes{background:repeating-linear-gradient(90deg,#2f3a68 0 7px,#e9e2cf 7px 15px)}
+  .kraft{
+    background-color:#ebe3d3;
+    background-image:
+      radial-gradient(rgba(110,90,60,.10) 1px,transparent 1.5px),
+      radial-gradient(rgba(255,255,255,.5) 1px,transparent 1.5px);
+    background-size:5px 5px,7px 7px;
+  }
+  .leather{
+    background:radial-gradient(circle at 30% 20%,#8e2a2e,#6a1619 70%);
+    background-image:
+      radial-gradient(rgba(0,0,0,.18) 1px,transparent 1.5px),
+      radial-gradient(circle at 30% 20%,#8e2a2e,#6a1619 70%);
+    background-size:4px 4px,100% 100%;
+  }
+  .shadow{filter:drop-shadow(2px 4px 5px rgba(60,30,20,.22))}
+
+  /* ---------- cover ---------- */
+  #cover{
+    position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;
+    background:#fbf8f2;transition:opacity .8s ease, visibility .8s;
+  }
+  #cover.gone{opacity:0;visibility:hidden}
+  .envelope{position:relative;width:290px;height:200px;cursor:pointer;transition:transform .3s}
+  .envelope:hover{transform:rotate(-2deg) scale(1.02)}
+  .env-body{position:absolute;inset:0;border-radius:6px}
+  .env-flap{
+    position:absolute;left:0;right:0;top:0;height:120px;
+    clip-path:polygon(0 0,100% 0,50% 100%);background:#e6dcc8;
+    border-top-left-radius:6px;border-top-right-radius:6px;
+  }
+  .seal{
+    position:absolute;left:50%;top:96px;transform:translate(-50%,-50%);
+    width:54px;height:54px;z-index:2;animation:pulse 1.8s ease-in-out infinite;
+  }
+  @keyframes pulse{50%{transform:translate(-50%,-50%) scale(1.08)}}
+  .env-to{position:absolute;bottom:22px;width:100%;text-align:center;font-family:'Caveat';font-size:30px;color:var(--deep)}
+  .tap{margin-top:26px;text-align:center;font-family:'Special Elite';font-size:13px;letter-spacing:2px;color:#9b7f6a}
+
+  /* ---------- sections ---------- */
+  section{position:relative;margin:34px 0}
+  h1,h2{font-family:'Caveat';font-weight:700;color:var(--deep);line-height:1}
+  h1{font-size:52px}
+  h2{font-size:36px;margin-bottom:6px}
+  .typed{font-family:'Special Elite';font-size:13px;letter-spacing:1px;color:#7d6656}
+  p.hand{font-size:22px;line-height:28px}
+
+  .hero{padding:26px 20px 30px;min-height:420px}
+  .hero .bg-gingham{position:absolute;left:-10px;top:30px;width:150px;height:220px;transform:rotate(-6deg)}
+  .hero .bg-leather{position:absolute;right:-14px;top:160px;width:170px;height:260px;transform:rotate(5deg)}
+  .hero .card{position:relative;z-index:2;margin:0 auto;width:88%;padding:22px 18px 18px;transform:rotate(-1.5deg)}
+  .hero .bear{display:block;width:190px;margin:4px auto 0}
+  .bob{animation:bob 3s ease-in-out infinite;transform-origin:50% 90%}
+  @keyframes bob{50%{transform:rotate(2deg) translateY(-3px)}}
+
+  .tape{position:absolute;width:90px;height:26px;background:rgba(233,160,166,.55);z-index:3;
+    clip-path:polygon(3% 0,97% 4%,100% 50%,96% 100%,2% 96%,0 50%)}
+  .clip{position:absolute;right:22px;top:-18px;width:26px;z-index:4}
+  .star{position:absolute;z-index:4}
+  .star svg{width:100%;height:100%}
+
+  /* care package */
+  .care{padding:24px 16px}
+  .items{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+  .item{
+    background:#fffaf2;border:none;border-radius:4px;padding:14px 8px 10px;cursor:pointer;
+    font-family:'Gaegu';font-size:19px;color:var(--ink);text-align:center;transition:transform .2s;
+  }
+  .item:nth-child(odd){transform:rotate(-2deg)} .item:nth-child(even){transform:rotate(2deg)}
+  .item:hover,.item.on{transform:rotate(0) scale(1.05)}
+  .item .emo{font-size:38px;display:block}
+  .item.on{background:#fde9e7}
+  .note-out{
+    min-height:64px;margin-top:18px;padding:12px 14px 12px 44px;font-size:21px;line-height:28px;
+    opacity:0;transform:translateY(6px);transition:all .35s;
+  }
+  .note-out.show{opacity:1;transform:none}
+
+  /* reasons */
+  .reasons{padding:24px 18px 22px 46px}
+  .reasons ul{list-style:none}
+  .reasons li{font-size:22px;line-height:28px;padding-left:4px;position:relative}
+  .reasons li::before{content:"♡";position:absolute;left:-24px;color:var(--red)}
+
+  /* open when */
+  .envs{display:flex;gap:12px;overflow-x:auto;padding:10px 4px 16px;scroll-snap-type:x mandatory}
+  .ow{
+    flex:0 0 170px;height:210px;scroll-snap-align:center;perspective:800px;cursor:pointer;
+  }
+  .ow .inner{position:relative;width:100%;height:100%;transition:transform .6s;transform-style:preserve-3d}
+  .ow.flip .inner{transform:rotateY(180deg)}
+  .ow .face{position:absolute;inset:0;backface-visibility:hidden;border-radius:4px;padding:16px 14px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+  .ow .front{color:#fff}
+  .ow .front .typed{color:rgba(255,255,255,.85)}
+  .ow .front b{font-family:'Caveat';font-size:30px;line-height:1;margin-top:6px}
+  .ow .back{transform:rotateY(180deg);font-size:19px;line-height:24px}
+  .swipe{font-family:'Special Elite';font-size:11px;color:#a08a78;text-align:right;letter-spacing:1px}
+
+  /* hug */
+  .hug{text-align:center;padding:30px 10px 10px}
+  .hugbtn{
+    margin-top:14px;border:none;cursor:pointer;padding:16px 34px;font-family:'Caveat';font-size:30px;color:#fff;
+    background:var(--red);border-radius:50px;box-shadow:0 5px 0 var(--deep);transition:transform .1s, box-shadow .1s;
+  }
+  .hugbtn:active{transform:translateY(4px);box-shadow:0 1px 0 var(--deep)}
+  #hugcount{margin-top:12px;font-family:'Special Elite';font-size:13px;color:#7d6656;min-height:18px}
+  .newsheart{width:120px;margin:28px auto 0;display:block}
+
+  .floaty{position:fixed;pointer-events:none;z-index:60;font-size:26px;animation:rise 2.6s ease-out forwards}
+  @keyframes rise{to{transform:translateY(-75vh) rotate(var(--r));opacity:0}}
+
+  .fade{opacity:0;transform:translateY(18px);transition:opacity .8s, transform .8s}
+  .fade.in{opacity:1;transform:none}
+  .fade.in.tilt-l{transform:rotate(-1.5deg)} .fade.in.tilt-r{transform:rotate(1.2deg)}
+  /* basketball game */
+  .game{padding:22px 14px 18px}
+  .court{position:relative;margin-top:10px;border-radius:4px;overflow:hidden;background:#d9a46a;
+    background-image:repeating-linear-gradient(90deg,rgba(120,70,30,.12) 0 2px,transparent 2px 34px)}
+  #hoopCanvas{display:block;width:100%;height:auto;touch-action:manipulation;cursor:pointer}
+  .scoreboard{display:flex;justify-content:space-between;align-items:center;margin-top:10px;font-family:'Special Elite';font-size:14px;color:#3a2a22}
+  .scoreboard b{font-family:'Caveat';font-size:30px;color:var(--deep)}
+  #cheer{min-height:30px;text-align:center;font-family:'Caveat';font-size:26px;color:var(--deep);margin-top:4px}
+  #mvp{display:none;margin-top:12px;padding:14px 14px 14px 44px;font-size:21px;line-height:28px}
+  #mvp.show{display:block;animation:pop .5s ease}
+  @keyframes pop{0%{transform:scale(.8);opacity:0}100%{transform:scale(1);opacity:1}}
+  .ball-sticker{position:absolute;z-index:4}
+  .ball-sticker svg{width:100%;height:100%}
+  .ticket{display:flex;margin:36px auto 0;max-width:330px;background:#efe2c4;transform:rotate(-2deg);
+    font-family:'Special Elite';color:#2f3a68}
+  .ticket .main{flex:1;padding:14px 16px;border-right:2px dashed #b9a57e}
+  .ticket .main b{display:block;font-family:'Caveat';font-size:30px;color:var(--deep);line-height:1;margin:4px 0}
+  .ticket .stub{width:78px;display:flex;align-items:center;justify-content:center;writing-mode:vertical-rl;font-size:12px;letter-spacing:2px;background:#2f3a68;color:#efe2c4}
+  .nextbtn{display:block;margin:26px auto 0;border:none;cursor:pointer;padding:12px 26px;font-family:'Caveat';font-size:27px;
+    color:var(--deep);background:#efe2c4;border-radius:4px;transform:rotate(-1.5deg);box-shadow:2px 4px 8px rgba(60,30,20,.2);
+    animation:nudge 2s ease-in-out infinite}
+  .nextbtn:active{transform:rotate(-1.5deg) scale(.96)}
+  @keyframes nudge{50%{transform:rotate(1deg) translateY(-3px)}}
+  footer{text-align:center;font-family:'Caveat';font-size:24px;color:var(--deep);margin-top:40px}
+</style>
+</head>
+<body>
+
+<!-- ============ envelope cover ============ -->
+<div id="cover">
+  <div>
+    <div class="envelope shadow" id="envelope">
+      <div class="env-body kraft"></div>
+      <div class="env-flap"></div>
+      <svg class="seal" viewBox="0 0 60 60">
+        <circle cx="30" cy="30" r="27" fill="#b3242b"/><circle cx="30" cy="30" r="21" fill="none" stroke="#8a1a20" stroke-width="2" stroke-dasharray="3 3"/>
+        <path d="M30 42 C14 31 18 19 25 19 C28 19 30 22 30 24 C30 22 32 19 35 19 C42 19 46 31 30 42Z" fill="#f3d6cf"/>
+      </svg>
+      <div class="env-to">for momo ♡</div>
+    </div>
+    <div class="tap">TAP TO OPEN</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- ============ basketball game ============ -->
+  <section class="game kraft torn shadow fade tilt-r">
+    <div class="tape" style="right:-12px;top:-6px;transform:rotate(18deg)"></div>
+    <h2>shoot your shot 🏀</h2>
+    <div class="typed">hi momo ♡ before you get your letter, you gotta earn it. tap the court when the hoop lines up with the ball. sink 5 to unlock it</div>
+    <div class="court shadow"><canvas id="hoopCanvas" width="360" height="400"></canvas></div>
+    <div class="scoreboard"><span>MOMO</span><b id="score">0</b><span>/ 5</span></div>
+    <div id="cheer"></div>
+    <div id="mvp" class="lined torn">🏆 <b style="font-family:'Caveat';font-size:26px;color:#7a1c20">MVP unlocked!</b><br>you're my favourite person to cheer for, on the court and off it. your letter is unlocked ↓ <br><span style="font-size:17px">(you can keep shooting for fun too)</span></div>
+  </section>
+
+  <div id="rest" style="display:none">
+  <!-- ============ hero ============ -->
+  <section class="hero">
+    <div class="bg-gingham gingham torn shadow"></div>
+    <div class="bg-leather leather torn shadow"></div>
+    <div class="star" style="left:4px;top:-6px;width:62px;height:62px;transform:rotate(-12deg)"></div>
+    <div class="star" style="left:46px;top:46px;width:36px;height:36px;transform:rotate(14deg)"></div>
+    <div class="ball-sticker shadow" style="right:0;top:6px;width:58px;height:58px;transform:rotate(-15deg)"></div>
+
+    <div class="card kraft torn shadow fade tilt-l">
+      <svg class="clip" viewBox="0 0 26 90"><path d="M8 85 V12 a5 5 0 0 1 10 0 V70 a3 3 0 0 1 -6 0 V20" fill="none" stroke="#55505a" stroke-width="2.4" stroke-linecap="round"/></svg>
+      <div class="typed">a little delivery for you —</div>
+      <h1>thinking of you,<br>momo</h1>
+      <!-- original mascot: a little paper bear named Biscuit -->
+      <svg class="bear bob" viewBox="0 0 200 210" aria-label="a little bear hugging hearts">
+        <g stroke="#3a2a22" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <!-- feet -->
+          <ellipse cx="72" cy="192" rx="22" ry="12" fill="#d9a77a"/>
+          <ellipse cx="128" cy="192" rx="22" ry="12" fill="#d9a77a"/>
+          <!-- body -->
+          <path d="M52 186 C40 140 60 110 100 110 C140 110 160 140 148 186 Z" fill="#c98a5a"/>
+          <ellipse cx="100" cy="160" rx="28" ry="24" fill="#ecd0ac" stroke="none"/>
+          <!-- ears -->
+          <circle cx="58" cy="44" r="18" fill="#c98a5a"/><circle cx="58" cy="44" r="8" fill="#ecd0ac" stroke="none"/>
+          <circle cx="142" cy="44" r="18" fill="#c98a5a"/><circle cx="142" cy="44" r="8" fill="#ecd0ac" stroke="none"/>
+          <!-- head -->
+          <ellipse cx="100" cy="76" rx="52" ry="44" fill="#c98a5a"/>
+          <ellipse cx="100" cy="92" rx="22" ry="16" fill="#ecd0ac"/>
+          <!-- face -->
+          <path d="M70 72 q7 -7 14 0" fill="none"/><path d="M116 72 q7 -7 14 0" fill="none"/>
+          <ellipse cx="100" cy="86" rx="7" ry="5" fill="#3a2a22"/>
+          <path d="M100 91 v5 M92 98 q8 7 16 0" fill="none"/>
+          <!-- scarf -->
+          <path d="M60 112 q40 18 80 0 l2 12 q-42 18 -84 0z" fill="#b3242b"/>
+          <path d="M122 120 l8 30 l12 -4 l-6 -28" fill="#b3242b"/>
+          <path d="M126 132 l10 -3 M129 142 l10 -3" stroke="#f3d6cf" stroke-width="2"/>
+        </g>
+        <ellipse cx="66" cy="92" rx="9" ry="6" fill="#e9a0a6" opacity=".8"/>
+        <ellipse cx="134" cy="92" rx="9" ry="6" fill="#e9a0a6" opacity=".8"/>
+        <!-- heart he's holding -->
+        <g stroke="#3a2a22" stroke-width="3" stroke-linejoin="round">
+          <path d="M100 178 C70 160 74 136 88 136 C95 136 100 142 100 147 C100 142 105 136 112 136 C126 136 130 160 100 178Z" fill="#b3242b"/>
+          <path d="M62 150 q10 10 26 4" fill="none" stroke-linecap="round"/>
+          <path d="M138 150 q-10 10 -26 4" fill="none" stroke-linecap="round"/>
+        </g>
+        <path d="M90 145 q4 -4 8 -2" stroke="#f3d6cf" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      </svg>
+      <div class="typed" style="text-align:center;margin-top:2px">(that's me, merbear, sending you a hug)</div>
+      <p class="hand" style="text-align:center;margin-top:8px">i know things have felt heavy lately. you don't have to fix anything or explain anything. i just wanted you to have a little corner of the internet that's only for you ♡</p>
+    </div>
+  </section>
+
+  <!-- ============ care package ============ -->
+  <section class="care gingham torn shadow fade tilt-r" style="background-color:#fff6f2">
+    <div class="kraft torn" style="padding:18px 14px 20px">
+      <div class="tape" style="left:-14px;top:-8px;transform:rotate(-20deg)"></div>
+      <h2>your care package</h2>
+      <div class="typed">tap each one ↓</div>
+      <div class="items">
+        <button class="item shadow" data-msg="a warm cup of tea. take one slow breath for every sip. no rush, the world can wait a minute ☕"><span class="emo">🍵</span>tea</button>
+        <button class="item shadow" data-msg="the softest blanket. you have full permission to do absolutely nothing today and still be enough."><span class="emo">🧸</span>blanket</button>
+        <button class="item shadow" data-msg="your own playlist, on repeat. (yes, i'm stealing songs from it again xp) 🎧"><span class="emo">🎧</span>music</button>
+        <button class="item shadow" data-msg="one game of 1v1 whenever you're up for it. i'll go easy on you... maybe 😏🏀"><span class="emo">🏀</span>a 1v1</button>
+        <button class="item shadow" data-msg="one (1) very long hug from merbear, valid any time, no expiry date ♡"><span class="emo">🤍</span>a hug</button>
+      </div>
+      <div class="note-out lined torn" id="noteOut"></div>
+    </div>
+  </section>
+
+  <!-- ============ reasons ============ -->
+  <section class="reasons lined torn shadow fade tilt-l">
+    <div class="star" style="right:-10px;top:-20px;width:50px;height:50px;transform:rotate(18deg)"></div>
+    <h2 style="margin-left:-20px">reminders, in case you forgot</h2>
+    <ul>
+      <li>hard days don't make you any less you.</li>
+      <li>you're allowed to rest. it's not giving up.</li>
+      <li>i love how joyful you are. it's one of my favourite things in the world, and it's still in there, even on the grey days.</li>
+      <li>i love your spotify playlist xp</li>
+      <li>you make my days better just by texting me.</li>
+      <li>even the best players have off games. it doesn't change who you are on the court 🏀</li>
+      <li>you don't have to carry everything alone. i'm right here.</li>
+    </ul>
+  </section>
+
+  <!-- ============ open when ============ -->
+  <section class="fade">
+    <h2>open when…</h2>
+    <div class="swipe">SWIPE → TAP TO OPEN</div>
+    <div class="envs">
+      <div class="ow shadow"><div class="inner">
+        <div class="face front leather"><span class="typed">open when</span><b>everything feels like too much</b></div>
+        <div class="face back lined">just do the next tiny thing. drink some water. breathe. that counts, i promise ✦</div>
+      </div></div>
+      <div class="ow shadow"><div class="inner">
+        <div class="face front navycheck" style="color:#fff"><span class="typed">open when</span><b style="background:#2f3a68;padding:2px 6px">you can't sleep</b></div>
+        <div class="face back kraft">put on your playlist, close your eyes and let your brain be quiet for a bit. tomorrow can wait.</div>
+      </div></div>
+      <div class="ow shadow"><div class="inner">
+        <div class="face front gingham"><span class="typed" style="background:#fff6f2;color:#7a1c20;padding:2px 6px">open when</span><b style="background:#fff6f2;color:#7a1c20;padding:2px 6px">you feel alone</b></div>
+        <div class="face back lined">you're not. text me, even if it's just "hi". i'll always want to hear from you 😌</div>
+      </div></div>
+      <div class="ow shadow"><div class="inner">
+        <div class="face front stripes"><b style="background:#e9e2cf;color:#2f3a68;padding:4px 8px">you feel a little lighter</b></div>
+        <div class="face back kraft">yay!! that means we're trying a new restaurant and getting margarita drunk 🍹♡</div>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- ============ hug ============ -->
+  <section class="hug fade">
+    <h2>need a hug?</h2>
+    <div class="typed">press as many times as you need</div>
+    <button class="hugbtn" id="hugbtn">send hug ♡</button>
+    <div id="hugcount"></div>
+    <!-- newspaper heart -->
+    <svg class="newsheart shadow" viewBox="0 0 120 110">
+      <defs>
+        <pattern id="np" width="120" height="8" patternUnits="userSpaceOnUse">
+          <rect width="120" height="8" fill="#ece4d2"/>
+          <rect x="6" y="3" width="44" height="2" fill="#8f8676"/><rect x="56" y="3" width="30" height="2" fill="#8f8676"/><rect x="90" y="3" width="24" height="2" fill="#8f8676"/>
+        </pattern>
+      </defs>
+      <path d="M60 104 C10 72 4 40 22 22 C36 8 54 14 60 30 C66 14 84 8 98 22 C116 40 110 72 60 104Z" fill="url(#np)" stroke="#d6ccb6" stroke-width="1.5"/>
+      <text x="60" y="52" text-anchor="middle" font-family="Special Elite" font-size="10" fill="#3a2a22">ALWAYS</text>
+      <text x="60" y="64" text-anchor="middle" font-family="Special Elite" font-size="10" fill="#3a2a22">HERE</text>
+    </svg>
+  </section>
+
+  <div class="ticket shadow fade">
+    <div class="main">ADMIT ONE
+      <b>courtside with merbear</b>
+      <span style="font-size:12px">valid: whenever you want · seat: next to me</span>
+    </div>
+    <div class="stub">NO. 001 ♡</div>
+  </div>
+
+  <footer class="fade">— love, merbear ♡</footer>
+  </div>
+</div>
+
+<script>
+  // gold paper stars
+  const starSVG = `<svg viewBox="0 0 100 100"><defs><radialGradient id="g" cx="40%" cy="35%"><stop offset="0" stop-color="#f6dc8a"/><stop offset=".6" stop-color="#d9a93a"/><stop offset="1" stop-color="#a87a1e"/></radialGradient></defs><path d="M50 4 L62 36 L96 38 L70 60 L79 94 L50 75 L21 94 L30 60 L4 38 L38 36 Z" fill="url(#g)" stroke="#a87a1e" stroke-width="2" stroke-linejoin="round"/></svg>`;
+  document.querySelectorAll('.star').forEach(s => s.innerHTML = starSVG);
+
+  // torn paper edges
+  function tear(el){
+    const pts=[], n=22, j=()=> (Math.random()*1.6).toFixed(2);
+    for(let i=0;i<=n;i++) pts.push(`${(i/n*100).toFixed(1)}% ${j()}%`);
+    for(let i=1;i<=n;i++) pts.push(`${(100-j())}% ${(i/n*100).toFixed(1)}%`);
+    for(let i=n-1;i>=0;i--) pts.push(`${(i/n*100).toFixed(1)}% ${(100-j())}%`);
+    for(let i=n-1;i>0;i--) pts.push(`${j()}% ${(i/n*100).toFixed(1)}%`);
+    el.style.clipPath=`polygon(${pts.join(',')})`;
+  }
+  document.querySelectorAll('.torn').forEach(tear);
+
+  // open envelope
+  const cover=document.getElementById('cover');
+  document.getElementById('envelope').addEventListener('click',()=>{
+    burst(window.innerWidth/2, window.innerHeight/2, 14);
+    cover.classList.add('gone');
+    setTimeout(reveal,300);
+  });
+
+  // reveal on scroll
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.15});
+  function reveal(){document.querySelectorAll('.fade').forEach(el=>io.observe(el))}
+
+  // care package
+  const out=document.getElementById('noteOut');
+  document.querySelectorAll('.item').forEach(b=>b.addEventListener('click',()=>{
+    document.querySelectorAll('.item').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');
+    out.classList.remove('show');
+    setTimeout(()=>{out.textContent=b.dataset.msg;tear(out);out.classList.add('show')},150);
+  }));
+
+  // open-when flips
+  document.querySelectorAll('.ow').forEach(c=>c.addEventListener('click',()=>c.classList.toggle('flip')));
+
+  // hugs
+  let hugs=0;
+  const lines=["hug delivered ♡","another one!","squeeze 🤍","okay you clearly needed that","infinite hugs unlocked","still here, still hugging"];
+  document.getElementById('hugbtn').addEventListener('click',e=>{
+    hugs++;
+    const r=e.target.getBoundingClientRect();
+    burst(r.left+r.width/2, r.top, 10);
+    document.getElementById('hugcount').textContent = `${hugs} hug${hugs>1?'s':''} sent · ${lines[Math.min(hugs-1,lines.length-1)]}`;
+  });
+
+  // basketball sticker
+  const ballSVG = `<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="#e07a2e" stroke="#3a2a22" stroke-width="4"/><g fill="none" stroke="#3a2a22" stroke-width="3.5"><path d="M4 50 H96 M50 4 V96"/><path d="M18 18 C36 34 36 66 18 82"/><path d="M82 18 C64 34 64 66 82 82"/></g><ellipse cx="34" cy="28" rx="10" ry="6" fill="#f4a868" opacity=".6"/></svg>`;
+  document.querySelectorAll('.ball-sticker').forEach(s=>s.innerHTML=ballSVG);
+
+  // ---------- shooting game ----------
+  (function(){
+    const cv=document.getElementById('hoopCanvas'), ctx=cv.getContext('2d');
+    const W=cv.width, H=cv.height, RIM_Y=120, BALL_R=22, START_Y=H-50;
+    let t0=performance.now(), score=0, shot=null, msgTimer;
+    const cheers=["swish! 💫","nothing but net!","that's my momo 🏀","buckets!!","you're on fire 🔥","okay show off 😌","splash! ♡","clutch."];
+    const misses=["so close!","off the rim, go again","shake it off ♡","next one's going in"];
+    const ballImg=new Image(); ballImg.src='data:image/svg+xml;utf8,'+encodeURIComponent(ballSVG);
+    const speed=()=>0.0014+Math.min(score,10)*0.00018;
+    let phase=0,last=performance.now();
+    const hoopX=()=>W/2+Math.sin(phase)*120;
+
+    function cheer(txt){const c=document.getElementById('cheer');c.textContent=txt;clearTimeout(msgTimer);msgTimer=setTimeout(()=>c.textContent='',1600)}
+
+    function drawHoop(x,front){
+      if(!front){
+        // backboard
+        ctx.fillStyle='#fbf8f2';ctx.strokeStyle='#3a2a22';ctx.lineWidth=3;
+        ctx.beginPath();ctx.roundRect(x-52,RIM_Y-74,104,68,4);ctx.fill();ctx.stroke();
+        ctx.strokeStyle='#b3242b';ctx.strokeRect(x-20,RIM_Y-44,40,30);
+        // net
+        ctx.strokeStyle='rgba(255,255,255,.9)';ctx.lineWidth=2;
+        for(let i=0;i<=6;i++){const a=x-28+i*9.3;ctx.beginPath();ctx.moveTo(a,RIM_Y);ctx.lineTo(x-16+i*5.3,RIM_Y+40);ctx.stroke();}
+        for(let j=1;j<=3;j++){const w=28-j*4;ctx.beginPath();ctx.moveTo(x-w,RIM_Y+j*12);ctx.lineTo(x+w,RIM_Y+j*12);ctx.stroke();}
+      }
+      // rim
+      ctx.strokeStyle='#b3242b';ctx.lineWidth=5;
+      ctx.beginPath();ctx.ellipse(x,RIM_Y,30,7,0,front?0:Math.PI,front?Math.PI:Math.PI*2);ctx.stroke();
+    }
+
+    function drawBall(x,y,s,rot){
+      ctx.save();ctx.translate(x,y);ctx.rotate(rot);ctx.drawImage(ballImg,-BALL_R*s,-BALL_R*s,BALL_R*2*s,BALL_R*2*s);ctx.restore();
+    }
+
+    function loop(now){
+      const dt=now-last;last=now;if(!shot)phase+=dt*speed();
+      ctx.clearRect(0,0,W,H);
+      // court lines
+      ctx.strokeStyle='rgba(255,255,255,.7)';ctx.lineWidth=3;
+      ctx.beginPath();ctx.arc(W/2,H+40,150,Math.PI,0);ctx.stroke();
+      ctx.strokeRect(W/2-60,H-170,120,170);
+      const hx=hoopX();
+      drawHoop(hx,false);
+
+      let bx=W/2,by=START_Y,bs=1,rot=0,inFront=true;
+      if(shot){
+        const p=(now-shot.start)/shot.dur;
+        if(shot.stage==='up'){
+          const k=Math.min(p,1);
+          by=START_Y-(START_Y-(RIM_Y-60))*Math.sin(k*Math.PI/2)-0;
+          bs=1-0.38*k;rot=k*6;
+          if(k>=1){
+            const off=Math.abs(hx-W/2);
+            shot={stage: off<24?'in':'miss',start:now,dur:550,hx,dir:Math.sign(W/2-hx)||1};
+            if(off<24){score++;document.getElementById('score').textContent=score;cheer(cheers[(score-1)%cheers.length]);
+              const r=cv.getBoundingClientRect();burst(r.left+r.width*(hx/W),r.top+r.height*(RIM_Y/H),8);
+              if(score===5){document.getElementById('mvp').classList.add('show');tear(document.getElementById('mvp'));burst(window.innerWidth/2,window.innerHeight/2,24);unlock();}
+              if(score===10)cheer("10?! ok you're officially the goat 🐐");
+            } else cheer(misses[Math.floor(Math.random()*misses.length)]);
+          }
+        } else if(shot.stage==='in'){
+          const k=Math.min(p,1);
+          bx=W/2+(shot.hx-W/2)*Math.min(k*3,1); by=(RIM_Y-60)+k*(H-(RIM_Y-60)+40);
+          bs=0.62;rot=6+k*3; inFront=k>0.12? false:true;
+          if(k>=1)shot=null;
+        } else {
+          const k=Math.min(p,1);
+          bx=W/2+shot.dir*k*90; by=(RIM_Y-60)-Math.sin(k*Math.PI)*40+k*k*(H);
+          bs=0.62;rot=6-k*5;
+          if(k>=1)shot=null;
+        }
+      }
+      if(!inFront){ // ball passing through net: draw ball then front rim
+        drawBall(bx,by,bs,rot);drawHoop(hx,true);
+      } else {
+        drawHoop(hx,true);drawBall(bx,by,bs,rot);
+      }
+      if(!shot){
+        ctx.fillStyle='rgba(58,42,34,.55)';ctx.font='15px "Special Elite"';ctx.textAlign='center';
+        ctx.fillText('tap to shoot',W/2,H-10);
+      }
+      requestAnimationFrame(loop);
+    }
+    function shoot(){ if(shot) return; shot={stage:'up',start:performance.now(),dur:520}; }
+    cv.addEventListener('pointerdown',shoot);
+    ballImg.onload=()=>requestAnimationFrame(loop);
+  })();
+
+  function unlock(){
+    const r=document.getElementById('rest');
+    setTimeout(()=>{
+      const kids=[...r.children];
+      const steps=[[kids[0]],[kids[1]],[kids[2]],[kids[3]],[kids[4]],[kids[5],kids[6]]];
+      const labels=["open your care package 🎁","a few reminders for you →","some letters for later 💌","need a hug? →","one last thing ♡"];
+      kids.forEach(k=>k.style.display='none');
+      r.style.display='block';
+      let i=0;
+      const btn=document.createElement('button'); btn.className='nextbtn';
+      function show(n){
+        steps[n].forEach(el=>{el.style.display='';el.querySelectorAll('.torn').forEach(tear);if(el.classList.contains('torn'))tear(el);
+          (el.classList.contains('fade')?[el]:[]).concat([...el.querySelectorAll('.fade')]).forEach(f=>io.observe(f));});
+        const lastEl=steps[n][steps[n].length-1];
+        if(n<steps.length-1){btn.textContent=labels[n];lastEl.after(btn);} else btn.remove();
+        setTimeout(()=>steps[n][0].scrollIntoView({behavior:'smooth',block:'start'}),250);
+      }
+      btn.addEventListener('click',()=>{i++;show(i);});
+      show(0);
+    },1400);
+  }
+
+  function burst(x,y,n){
+    const em=['❤️','♡','✦','💌','🤍'];
+    for(let i=0;i<n;i++){
+      const s=document.createElement('span');
+      s.className='floaty';
+      s.textContent=em[Math.floor(Math.random()*em.length)];
+      s.style.left=(x+(Math.random()-.5)*160)+'px';
+      s.style.top=(y+(Math.random()-.5)*40)+'px';
+      s.style.color='#b3242b';
+      s.style.setProperty('--r',((Math.random()-.5)*80)+'deg');
+      s.style.animationDelay=(Math.random()*.3)+'s';
+      document.body.appendChild(s);
+      setTimeout(()=>s.remove(),3200);
+    }
+  }
+</script>
+</body>
+</html>
